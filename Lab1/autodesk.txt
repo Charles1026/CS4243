@@ -1,0 +1,84 @@
+curl -i -X POST \
+    'https://developer.api.autodesk.com/authentication/v1/authenticate' \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'client_id=WQdPeXHTkXGtiQ0w58g9HI9uPlkOiBSg' \
+    -d 'client_secret=t6JkHwbnmtxS36Jm' \
+    -d 'grant_type=client_credentials' \
+    -d 'scope=data:write data:read bucket:create bucket:delete'
+
+{"access_token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOndyaXRlIiwiZGF0YTpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpkZWxldGUiXSwiY2xpZW50X2lkIjoiV1FkUGVYSFRrWEd0aVEwdzU4ZzlISTl1UGxrT2lCU2ciLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiS2J4S0ZGYnc4NVRwS29oT2F6ZkZJanN4aENiVTl6WEdtVjNHbnJCNXhKaDBNd3pGTVJYZUpzR3dNYmROM29oQSIsImV4cCI6MTY3NTQwNjY0MH0.F65moM22fPnvX8ASS4CYGH_ao4rzCCKzZGV5wypnHxEEYdqqe3293UN4xLqbcdsVINADIrDx_ptszn07fNzEhec02G5799geWty05bM4bTt6i4yVIEetlZcpiQcth3wJimYjCFcqqhKyB7wZ6nNe_ssTO4q2ero6DQZdS_r4r5AgZrl2c3wPFemc5ZZIXlkdBa_mESkR-6gsIyFx9Hm2vO8HVJZd3p-2vFF4AYnXTjo3VBDI63hkBN3OTWeFXByPHnvvXmA-6STNsPGcOVFK2HVl3T-FR_Axx-OBb4XGic6o71OMEmosXp1GQNiv4wq_F6bbOSHDkAtkN2RLKdOX0Q","token_type":"Bearer","expires_in":3599}% 
+
+curl -X POST \
+    'https://developer.api.autodesk.com/oss/v2/buckets' \
+    -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOndyaXRlIiwiZGF0YTpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpkZWxldGUiXSwiY2xpZW50X2lkIjoiV1FkUGVYSFRrWEd0aVEwdzU4ZzlISTl1UGxrT2lCU2ciLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiS2J4S0ZGYnc4NVRwS29oT2F6ZkZJanN4aENiVTl6WEdtVjNHbnJCNXhKaDBNd3pGTVJYZUpzR3dNYmROM29oQSIsImV4cCI6MTY3NTQwNjY0MH0.F65moM22fPnvX8ASS4CYGH_ao4rzCCKzZGV5wypnHxEEYdqqe3293UN4xLqbcdsVINADIrDx_ptszn07fNzEhec02G5799geWty05bM4bTt6i4yVIEetlZcpiQcth3wJimYjCFcqqhKyB7wZ6nNe_ssTO4q2ero6DQZdS_r4r5AgZrl2c3wPFemc5ZZIXlkdBa_mESkR-6gsIyFx9Hm2vO8HVJZd3p-2vFF4AYnXTjo3VBDI63hkBN3OTWeFXByPHnvvXmA-6STNsPGcOVFK2HVl3T-FR_Axx-OBb4XGic6o71OMEmosXp1GQNiv4wq_F6bbOSHDkAtkN2RLKdOX0Q' \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "bucketKey": "try_upload",
+        "access": "full",
+        "policyKey": "transient"
+        }'
+
+{"bucketKey":"try_upload","bucketOwner":"WQdPeXHTkXGtiQ0w58g9HI9uPlkOiBSg","createdDate":1675403161610,"permissions":[{"authId":"WQdPeXHTkXGtiQ0w58g9HI9uPlkOiBSg","access":"full"}],"policyKey":"transient"}%   
+
+curl -X GET \
+    'https://developer.api.autodesk.com/oss/v2/buckets/try_upload/objects/Stapler.zip/signeds3upload?minutesExpiration=10' \
+    -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOndyaXRlIiwiZGF0YTpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpkZWxldGUiXSwiY2xpZW50X2lkIjoiV1FkUGVYSFRrWEd0aVEwdzU4ZzlISTl1UGxrT2lCU2ciLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiS2J4S0ZGYnc4NVRwS29oT2F6ZkZJanN4aENiVTl6WEdtVjNHbnJCNXhKaDBNd3pGTVJYZUpzR3dNYmROM29oQSIsImV4cCI6MTY3NTQwNjY0MH0.F65moM22fPnvX8ASS4CYGH_ao4rzCCKzZGV5wypnHxEEYdqqe3293UN4xLqbcdsVINADIrDx_ptszn07fNzEhec02G5799geWty05bM4bTt6i4yVIEetlZcpiQcth3wJimYjCFcqqhKyB7wZ6nNe_ssTO4q2ero6DQZdS_r4r5AgZrl2c3wPFemc5ZZIXlkdBa_mESkR-6gsIyFx9Hm2vO8HVJZd3p-2vFF4AYnXTjo3VBDI63hkBN3OTWeFXByPHnvvXmA-6STNsPGcOVFK2HVl3T-FR_Axx-OBb4XGic6o71OMEmosXp1GQNiv4wq_F6bbOSHDkAtkN2RLKdOX0Q' \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "ossbucketKey": "try_upload",
+        "ossSourceFileObjectKey": "Stapler.zip",
+        "access": "full",
+        "policyKey": "transient"
+        }'
+
+{"uploadKey":"AQICAHifrJ6-BSHUmjAat4QWI-fuvghN23akgePMdmykVh3EFwEsuG8_m9e2d09eIDC1qnJXAAABrDCCAagGCSqGSIb3DQEHBqCCAZkwggGVAgEAMIIBjgYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAywx00ftCeciznRHmICARCAggFfsyEGD4dlpOh_QFYVA-viWwSYu8rVHn_QFsW91CGTFnoNkzVPGUv9r3wbHAOceW1Jp_5XLZbu524MBPtamMyvdA2jofiSrFf14bZL1rDeoW_eCDTwAl-0f2xhU6nzOXcGMMPwM6I4zCgzT7z3hlf3aR_y26OKNPTf56RF_HnN9GU9iPsnSSV-OgYs7lkljqgAELsknHnWQhpCKwaUfIIeFmgwItc3cte8aDZntKiOHLqHz96Wyz3s1IkTgob_O_bLtdYT1V-QYElLxQqiUoXv2fr-DZC4VJQnQ1ZLIHVCtCKsB1iukQl7ewK1hy0nt-jgYMpxj_H_isNyoqIZlMO4leE8dJHa5pchWQ8yYlcCo6qmTiRcTBBuI6l8FY5bHNluv7irMop5rlP4Z-ZXo2Hr8cfld_fD8uGJJgZDiGnfrR2xF0aiwdtj58frQSDrs-vZQ_Fahyx3eHnIseybGm4C","uploadExpiration":"2023-02-06T00:00:00Z","urlExpiration":"2023-02-03T05:58:34Z","urls":["https://com-autodesk-oss-direct-upload.s3-accelerate.amazonaws.com/04/e2/05/af/bucket/try_upload/signed-url-uploads/04e205af-df19-44b1-aa47-393c2d862c35?uploadId=LgaNSgRyZ_YwTnLhwCff60WMu9odrDLDoWD61eexkHG18xmnIuFHJl9Iz2cCk09KgiWZy3JWpLTvg7B0jjPvVj_h_yvFVm41Z54NoyrhxTqihow82.52z2_di6iCiCokMuPlcnvhcTjh_msZ3_5_GA--&partNumber=1&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEG0aCXVzLWVhc3QtMSJGMEQCID4RVVivYTV%2BVmsw%2Ft8SYjYUA4oR%2F4sgFtfjEzo%2B787EAiB8PGHLXXWHQRZGGVR0b7CkxzpmBx2pF33sqVrmu8YTISrWBAjm%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYwNDczMzAwOTQwMyIMwwjf1ZZwbfKV9CfXKqoEDzPWfUXNePXStA%2Fa3qg6QHcj4%2BgPH89qwPhMHjlNF%2BmwtA3oUQSl5y43P5rBuLjXT1Uhk7qgAKWZeinTLW%2B9CivHEKN71XHHgMELNAsFgEWi%2BNB%2FP3g3b60zfGlMK3qTcjp6tm5j7kM%2FNSwq1IL7tIN43JbdQev8un0rHYPcWVOG2hxlcK23nqaRhlgyyqIPnDydcguN%2B42EpOHe8l3UhFiv1yPRFq2fkPo%2Fvg2IWgidQU6HmIQ%2FMyF%2B12zzpW934zOThG210%2FxXTABpRoY1z7Q01RUsNRK5yth4%2FgxY1UIicRJqMdRXcpmMgJ3cCm2SM0gLkUz%2FwPBNKCvh2TeZeiTf5XJaKKUzC5%2BLzD87CW8%2FYSkl6%2F97jd1d7sVJmL9e1i5cy7xW9C4nzQpWDf2W1muUT55gSIGZxVfvZLn4vMGCTWB%2BDYsxrqPMtiHiCfQ47OfhEwSh2I0awuC%2FSwQoFU5ZNWKBjmqU5nKet6FAP4mL7Z7RGA0Jr8Ke4qTAZHmURAulvr0gVM1n8wjesVks5XZtbeVTJ911z%2BYstdZpfECyWtaE1QOyCZteYRkuXYrCalNbyydSuhXkYjZndfy%2BGWwv1uaTI2D5I2eh133bLXZxKu8G7wwwy3A9agRf5%2BPOd%2BwNVUOJ%2FMe5ERm5JS06C2sBr4%2FjnL7eIO%2FvrX1CBA4%2FG3Vv7Aaz4qwKp17VQnOraiF%2BB1cmpZtuJxydepqboevDHy79EgqyIJow76jyngY6qgGDer59Z21jRqJKBNPJcVerqH655ftJwzCZvXPxzCPh0HrHzzc5O5XSdU44%2BV7M8%2BaM5ENZ2nXlnSsCn6K0q%2F79Aw0PF3iIabQy2L9rtAS6p%2B14fla8%2FN%2Bm82qRtliJ9EEz9o2EWlWxDY7t9CV4%2BDakb%2BUJbqdaa1XsyBP4VxxRb5ss7nDeAj6ZqCGRzS1Rwd5iHCw6UYKee3IqPzi7VKJvga90MY67pI%2FLyA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230203T054834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=599&X-Amz-Credential=ASIAYZTHFNX5QNEYN2PF%2F20230203%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=4d5461e1b0bfc5152ba40348aa3713a9f53df3e906fcc341bb518aab495de319"]}%     
+
+curl -X PUT \
+    'https://com-autodesk-oss-direct-upload.s3-accelerate.amazonaws.com/04/e2/05/af/bucket/try_upload/signed-url-uploads/04e205af-df19-44b1-aa47-393c2d862c35?uploadId=LgaNSgRyZ_YwTnLhwCff60WMu9odrDLDoWD61eexkHG18xmnIuFHJl9Iz2cCk09KgiWZy3JWpLTvg7B0jjPvVj_h_yvFVm41Z54NoyrhxTqihow82.52z2_di6iCiCokMuPlcnvhcTjh_msZ3_5_GA--&partNumber=1&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEG0aCXVzLWVhc3QtMSJGMEQCID4RVVivYTV%2BVmsw%2Ft8SYjYUA4oR%2F4sgFtfjEzo%2B787EAiB8PGHLXXWHQRZGGVR0b7CkxzpmBx2pF33sqVrmu8YTISrWBAjm%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYwNDczMzAwOTQwMyIMwwjf1ZZwbfKV9CfXKqoEDzPWfUXNePXStA%2Fa3qg6QHcj4%2BgPH89qwPhMHjlNF%2BmwtA3oUQSl5y43P5rBuLjXT1Uhk7qgAKWZeinTLW%2B9CivHEKN71XHHgMELNAsFgEWi%2BNB%2FP3g3b60zfGlMK3qTcjp6tm5j7kM%2FNSwq1IL7tIN43JbdQev8un0rHYPcWVOG2hxlcK23nqaRhlgyyqIPnDydcguN%2B42EpOHe8l3UhFiv1yPRFq2fkPo%2Fvg2IWgidQU6HmIQ%2FMyF%2B12zzpW934zOThG210%2FxXTABpRoY1z7Q01RUsNRK5yth4%2FgxY1UIicRJqMdRXcpmMgJ3cCm2SM0gLkUz%2FwPBNKCvh2TeZeiTf5XJaKKUzC5%2BLzD87CW8%2FYSkl6%2F97jd1d7sVJmL9e1i5cy7xW9C4nzQpWDf2W1muUT55gSIGZxVfvZLn4vMGCTWB%2BDYsxrqPMtiHiCfQ47OfhEwSh2I0awuC%2FSwQoFU5ZNWKBjmqU5nKet6FAP4mL7Z7RGA0Jr8Ke4qTAZHmURAulvr0gVM1n8wjesVks5XZtbeVTJ911z%2BYstdZpfECyWtaE1QOyCZteYRkuXYrCalNbyydSuhXkYjZndfy%2BGWwv1uaTI2D5I2eh133bLXZxKu8G7wwwy3A9agRf5%2BPOd%2BwNVUOJ%2FMe5ERm5JS06C2sBr4%2FjnL7eIO%2FvrX1CBA4%2FG3Vv7Aaz4qwKp17VQnOraiF%2BB1cmpZtuJxydepqboevDHy79EgqyIJow76jyngY6qgGDer59Z21jRqJKBNPJcVerqH655ftJwzCZvXPxzCPh0HrHzzc5O5XSdU44%2BV7M8%2BaM5ENZ2nXlnSsCn6K0q%2F79Aw0PF3iIabQy2L9rtAS6p%2B14fla8%2FN%2Bm82qRtliJ9EEz9o2EWlWxDY7t9CV4%2BDakb%2BUJbqdaa1XsyBP4VxxRb5ss7nDeAj6ZqCGRzS1Rwd5iHCw6UYKee3IqPzi7VKJvga90MY67pI%2FLyA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230203T054834Z&X-Amz-SignedHeaders=host&X-Amz-Expires=599&X-Amz-Credential=ASIAYZTHFNX5QNEYN2PF%2F20230203%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=4d5461e1b0bfc5152ba40348aa3713a9f53df3e906fcc341bb518aab495de319'\
+    --data-binary '@Stapler.zip'
+
+curl -X POST \
+    'https://developer.api.autodesk.com/oss/v2/buckets/try_upload/objects/Stapler.zip/signeds3upload' \
+    -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOndyaXRlIiwiZGF0YTpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpkZWxldGUiXSwiY2xpZW50X2lkIjoiV1FkUGVYSFRrWEd0aVEwdzU4ZzlISTl1UGxrT2lCU2ciLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiS2J4S0ZGYnc4NVRwS29oT2F6ZkZJanN4aENiVTl6WEdtVjNHbnJCNXhKaDBNd3pGTVJYZUpzR3dNYmROM29oQSIsImV4cCI6MTY3NTQwNjY0MH0.F65moM22fPnvX8ASS4CYGH_ao4rzCCKzZGV5wypnHxEEYdqqe3293UN4xLqbcdsVINADIrDx_ptszn07fNzEhec02G5799geWty05bM4bTt6i4yVIEetlZcpiQcth3wJimYjCFcqqhKyB7wZ6nNe_ssTO4q2ero6DQZdS_r4r5AgZrl2c3wPFemc5ZZIXlkdBa_mESkR-6gsIyFx9Hm2vO8HVJZd3p-2vFF4AYnXTjo3VBDI63hkBN3OTWeFXByPHnvvXmA-6STNsPGcOVFK2HVl3T-FR_Axx-OBb4XGic6o71OMEmosXp1GQNiv4wq_F6bbOSHDkAtkN2RLKdOX0Q' \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "ossbucketKey": "try_upload",
+        "ossSourceFileObjectKey": "Stapler.zip",
+        "access": "full",
+        "uploadKey": "AQICAHifrJ6-BSHUmjAat4QWI-fuvghN23akgePMdmykVh3EFwEsuG8_m9e2d09eIDC1qnJXAAABrDCCAagGCSqGSIb3DQEHBqCCAZkwggGVAgEAMIIBjgYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAywx00ftCeciznRHmICARCAggFfsyEGD4dlpOh_QFYVA-viWwSYu8rVHn_QFsW91CGTFnoNkzVPGUv9r3wbHAOceW1Jp_5XLZbu524MBPtamMyvdA2jofiSrFf14bZL1rDeoW_eCDTwAl-0f2xhU6nzOXcGMMPwM6I4zCgzT7z3hlf3aR_y26OKNPTf56RF_HnN9GU9iPsnSSV-OgYs7lkljqgAELsknHnWQhpCKwaUfIIeFmgwItc3cte8aDZntKiOHLqHz96Wyz3s1IkTgob_O_bLtdYT1V-QYElLxQqiUoXv2fr-DZC4VJQnQ1ZLIHVCtCKsB1iukQl7ewK1hy0nt-jgYMpxj_H_isNyoqIZlMO4leE8dJHa5pchWQ8yYlcCo6qmTiRcTBBuI6l8FY5bHNluv7irMop5rlP4Z-ZXo2Hr8cfld_fD8uGJJgZDiGnfrR2xF0aiwdtj58frQSDrs-vZQ_Fahyx3eHnIseybGm4C"
+        }'
+
+{"bucketKey":"try_upload","objectId":"urn:adsk.objects:os.object:try_upload/Stapler.zip","objectKey":"Stapler.zip","size":7221597,"contentType":"application/octet-stream","location":"https://developer.api.autodesk.com/oss/v2/buckets/try_upload/objects/Stapler.zip"}%  
+
+dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dHJ5X3VwbG9hZC9TdGFwbGVyLnppcA==
+
+curl  -X POST \
+      'https://developer.api.autodesk.com/modelderivative/v2/designdata/job' \
+      -H 'Content-Type: application/json' \
+      -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOndyaXRlIiwiZGF0YTpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpkZWxldGUiXSwiY2xpZW50X2lkIjoiV1FkUGVYSFRrWEd0aVEwdzU4ZzlISTl1UGxrT2lCU2ciLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiS2J4S0ZGYnc4NVRwS29oT2F6ZkZJanN4aENiVTl6WEdtVjNHbnJCNXhKaDBNd3pGTVJYZUpzR3dNYmROM29oQSIsImV4cCI6MTY3NTQwNjY0MH0.F65moM22fPnvX8ASS4CYGH_ao4rzCCKzZGV5wypnHxEEYdqqe3293UN4xLqbcdsVINADIrDx_ptszn07fNzEhec02G5799geWty05bM4bTt6i4yVIEetlZcpiQcth3wJimYjCFcqqhKyB7wZ6nNe_ssTO4q2ero6DQZdS_r4r5AgZrl2c3wPFemc5ZZIXlkdBa_mESkR-6gsIyFx9Hm2vO8HVJZd3p-2vFF4AYnXTjo3VBDI63hkBN3OTWeFXByPHnvvXmA-6STNsPGcOVFK2HVl3T-FR_Axx-OBb4XGic6o71OMEmosXp1GQNiv4wq_F6bbOSHDkAtkN2RLKdOX0Q' \
+      -H 'x-ads-force: true' \
+      -d '{
+          "input": {
+              "urn": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dHJ5X3VwbG9hZC9TdGFwbGVyLnppcA"
+          },
+          "output": {
+              "destination": {
+                  "region": "us"
+              },
+              "formats": [
+                  {
+                      "type": "svf",
+                      "views": [
+                          "2d",
+                          "3d"
+                      ]
+                  }
+              ]
+          }
+      }'
+
+{"result":"success","urn":"dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dHJ5X3VwbG9hZC9TdGFwbGVyLnppcA","acceptedJobs":{"output":{"destination":{"region":"us"},"formats":[{"type":"svf","views":["2d","3d"]}]}}}% 
+
+curl  -X GET \
+      'https://developer.api.autodesk.com/modelderivative/v2/designdata/dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6dHJ5X3VwbG9hZC9TdGFwbGVyLnppcA/manifest' \
+      -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJkYXRhOndyaXRlIiwiZGF0YTpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpkZWxldGUiXSwiY2xpZW50X2lkIjoiV1FkUGVYSFRrWEd0aVEwdzU4ZzlISTl1UGxrT2lCU2ciLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvYWp3dGV4cDYwIiwianRpIjoiV2ZId2NzSjE1b3d1aXZId2tXTUo3ZzVrMjhnTnUzWERMSkRwemFqYTBlWmF0bjFoVFNpT2RGUXBycTR0dTBnZiIsImV4cCI6MTY3NTQwNzQ3OH0.gTuss2wA7YcZZhTFQWroNz-F7g0fHzk78bjpd2psn-D7vXKV-avnBBGxkikP2yYyqR_fZjoP9acKVvcVWT3V8Pbqu6csjMftCABg7yUCKhP5OCoGfoafTOIUk2KZCyj4xxpYmF0JT2kAFaMl4Ad-EiN-n6ZikRuFWX2MkLWmYuHJxjXpdbVBDj1sdn3StqQ0QjS6RiqdqtpvDQWBWG-03QDumZv0WgKIuxgag8YwpYz0KJsUaiI3UQL8nIJCOjBepT6s1Kf2thELjyo_XMWi9Ti3tceRrkgRL3eR4Tc5HGyFXX65B7X0lZOs-ILRWuYVh-I4OFEHmRH2tgWX8RSHbQ'
